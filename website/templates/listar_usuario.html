@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Lista usuários{% endblock %}
+
+{% block content %}
+    <br><br>
+    <div class="container">
+        <br>
+        <h1 align="center">Lista de usuários</h1>
+        <br>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Apartamento</th>
+                <th scope="col">Tipo</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for us in usuarios %}
+                <tr>
+                    <th scope="row">{{ us.id }}</th>
+                    <td>{{ us.nome }}</td>
+                    <td>{{ us.apto }}</td>
+                    <td>{{ us.tipo_conta }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

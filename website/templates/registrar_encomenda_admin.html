@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar encomenda{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='listar_moradores.js') }}"></script>
+
+<br><br><br>
+<h1 align="center">Registrar encomenda</h1>
+    <div class="container">
+        <form method="POST">
+            <div class="form-group row">
+                <label for="descricao" class="col-sm-2 col-form-label">Descrição</label>
+                <div class="col-sm-10">
+                    <textarea 
+                    class="form-control" 
+                    name="descricao" 
+                    id="descricao"
+                    placeholder="Dois pacotes amazon" 
+                    rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="qtd" class="col-sm-2 col-form-label">Quantidade</label>
+                <div class="col-sm-10">
+                    <input type="number" name="qtd" class="form-control" id="qtd" placeholder="3">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="condominio_id" class="col-sm-2 col-form-label">Condominio</label>
+                <div class="col-sm-10">
+                    <select name="condominio_id" id="condominio_id" class="form-control" onclick="getIdCondominio()">
+                        <option value="">Selecione</option>
+                        {% for cond in condominio %}
+                            <option value="{{ cond.id }}">{{ cond.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="morador_id" class="col-sm-2 col-form-label">Morador</label>
+                <div class="col-sm-10">
+                    <select name="morador_id" id="morador_id" class="form-control">
+                        <option value="">Selecione um condomínio</option>
+                    </select>
+                </div>
+            </div>
+            <div align="center">
+                <button class="btn btn-outline-primary">Registrar</button>
+            </div>
+            <div id="mostra_valor">
+            </div>
+        </form>
+    </div>
+{% endblock %}

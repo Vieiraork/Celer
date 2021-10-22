@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <br><br><br>
+    <div class="container">
+        <p align="center">Bem vindo(a) ao seu perfil {{ usuario.nome }}.</p>
+        <p>Seu tipo de conta: <strong>{{ usuario.tipo_conta }}</strong></p>
+        <p>Permissões para seu perfil:</p>
+        {% if usuario.tipo_conta|string() == "Administrador" %}
+            <div class="container" style="width: max-content;">
+                <ul class="list-group">
+                    <li class="list-group-item">Criar todos os usuarios</li>
+                    <li class="list-group-item">Criar encomendas</li>
+                    <li class="list-group-item">Criar condominios</li>
+                    <li class="list-group-item">Listar usuarios</li>
+                    <li class="list-group-item">Listar encomendas</li>
+                    <li class="list-group-item">Listar condominios</li>
+                </ul>
+            </div>
+        {% elif usuario.tipo_conta|string() == "Porteiro" %}
+            <div class="container" style="width: max-content;">
+                <ul class="list-group">
+                    <li class="list-group-item">Criar encomendas para moradores do mesmo condomínio</li>
+                    <li class="list-group-item">Liberar recebimento de encomendas para moradores</li>
+                    <li class="list-group-item">Listar encomendas cadastradas</li>
+                </ul>
+            </div>
+        {% elif usuario.tipo_conta|string() == "Morador" %}
+            <div class="container" style="width: max-content;">
+                <ul class="list-group">
+                    <li class="list-group-item">Visualizar encomendas</li>
+                    <li class="list-group-item">Efetuar a confirmação de recebimento no sistema</li>
+                    <li class="list-group-item">Visualizar encomendas cadastradas</li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

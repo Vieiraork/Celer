@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Registro usuário{% endblock %}
+
+{% block content %}
+    <script>
+        function alteraCampos(){
+            let select = document.getElementById('tipo_conta');
+            let valor = select.options[select.selectedIndex].value;
+            const div = document.getElementById('campos_alterados');
+            
+            if(valor === "Morador"){
+                div.innerHTML = `<div class="form-group row">
+                <label for="apartamento" class="col-sm-1 col-form-label">Apartamento</label>
+                <div class="col-sm-10">
+                    <input type="text" name="apartamento" class="form-control" id="apartamento" placeholder="Apto 105">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="usuario_condominio" class="col-sm-1 col-form-label">Condomínio</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="usuario_condominio" id="usuario_condominio">
+                        <option>Selecione</option>
+                        {% for cond in condominio %}
+                            <option value="{{ cond.id }}">{{ cond.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>`;
+            } else if(valor === "Porteiro"){
+                div.innerHTML = `<div class="form-group row">
+                    <label for="usuario_condominio" class="col-sm-1 col-form-label">Condomínio</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="usuario_condominio" id="usuario_condominio">
+                            <option>Selecione</option>
+                            {% for cond in condominio %}
+                                <option value="{{ cond.id }}">{{ cond.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>`;
+            } else{
+                div.innerHTML = "";
+            }
+        }
+    </script>
+
+    <br><br><br>
+    <h4 align="center">Registro Usuario</h4>
+    <div class="container">
+        <form method="POST">
+            <div class="form-group row">
+                <label for="nome" class="col-sm-1 col-form-label">Nome</label>
+                <div class="col-sm-10">
+                    <input type="text" name="nome" class="form-control" id="nome" placeholder="Maria da Silva">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="login" class="col-sm-1 col-form-label">Login</label>
+                <div class="col-sm-10">
+                    <input type="text" name="login" class="form-control" id="login" placeholder="Master admin">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="senha" class="col-sm-1 col-form-label">Senha</label>
+                <div class="col-sm-10">
+                    <input type="password" name="senha" class="form-control" id="senha" placeholder="********">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="tipo_conta" class="col-sm-1 col-form-label">Usuário</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="tipo_conta" id="tipo_conta" onclick="alteraCampos()">
+                        <option>Selecione</option>
+                        <option value="Morador">Morador</option>
+                        <option value="Porteiro">Porteiro</option>
+                        <option value="Administrador">Administrador</option>
+                      </select>
+                </div>
+            </div>
+
+            <div id="campos_alterados">
+            </div>
+
+            <div align="center">
+                <button class="btn btn-outline-primary">Registrar</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

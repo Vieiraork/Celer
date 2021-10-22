@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar condominio{% endblock %}
+
+<!-- Nome - Endereco - Estado -->
+{% block content %}
+    <br><br><br>
+    <h4 align="center">Registro condominio</h4>
+    <div class="container">
+        <form method="POST">
+            <div class="form-group row">
+                <label for="nome_condominio" class="col-sm-1 col-form-label">Nome</label>
+                <div class="col-sm-10">
+                    <input type="text" name="nome_condominio" class="form-control" id="nome_condominio" placeholder="Condomínio Ipê Roxo">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="endereco" class="col-sm-1 col-form-label">Endereco</label>
+                <div class="col-sm-10">
+                    <input type="text" name="endereco" class="form-control" id="endereco" placeholder="qn 14b conjunto 7">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="estado" class="col-sm-1 col-form-label">Estado</label>
+                <div class="col-sm-10">
+                    <input type="text" name="estado" class="form-control" id="estado" placeholder="Distrito Federal">
+                </div>
+            </div>
+            <div align="center">
+                <button class="btn btn-outline-primary">Entrar</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Registro encomenda{% endblock %}
+
+{% block content %}
+    <!-- descricao - qtd - recebimento_porteiro -->
+    
+    {% if usuario.tipo_conta|string() == "Porteiro" %}
+        <br><br><br>
+        <h1 align="center">Registrar encomenda</h1>
+        <div class="container">
+            <form method="POST">
+                <div class="form-group row">
+                    <label for="descricao" class="col-sm-2 col-form-label">Descrição</label>
+                    <div class="col-sm-10">
+                        <textarea 
+                        class="form-control" 
+                        name="descricao" 
+                        id="descricao"
+                        placeholder="Dois pacotes amazon" 
+                        rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="qtd" class="col-sm-2 col-form-label">Quantidade</label>
+                    <div class="col-sm-10">
+                        <input type="number" name="qtd" class="form-control" id="qtd" placeholder="3">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="recebimento_porteiro" class="col-sm-2 col-form-label">Habilita recebimento</label>
+                    <div class="col-sm-10">
+                        <select name="recebimento_porteiro" id="recebimento_porteiro" class="form-control">
+                            <option value="">Selecione uma opção</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="morador_id" class="col-sm-2 col-form-label">Morador</label>
+                    <div class="col-sm-10">
+                        <select name="morador_id" id="morador_id" class="form-control">
+                            <option value="">Selecione um morador</option>
+                            {% for mor in morador %}
+                                <option value="{{ mor.id }}">{{ mor.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div align="center">
+                    <button class="btn btn-outline-primary">Registrar</button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

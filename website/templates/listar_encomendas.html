@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Lista encomendas{% endblock %}
+
+{% block content %}
+    <br><br>
+    <div class="container">
+        <script src="{{ url_for('static', filename='liberar_recebimento.js') }}"></script>
+        <br>
+        <h1 align="center">Lista de Encomendas</h1>
+        <br>
+        <table class="table table-bordered table-hover">
+            {% if usuario.tipo_conta|string() == "Porteiro" %}
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">QTD</th>
+                        <th scope="col">Liberado</th>
+                        <th scope="col">Id morador</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for encomenda in encomendas %}
+                        <tr>
+                            <th scope="row">{{ encomenda.id }}</th>
+                            <td>{{ encomenda.data.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ encomenda.qtd }}</td>
+                            <td>{{ encomenda.recebimento_porteiro }}</td>
+                            <td>{{ encomenda.encomenda_usuario }}</td>
+                            <td>
+                                {% if encomenda.recebimento_porteiro|string() == 'Não' %}
+                                    <button class="btn btn-outline-success" onclick="liberaRecebimento('{{ encomenda.id }}')">Habilitar</button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% elif usuario.tipo_conta|string() == "Administrador" %}
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Id</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">QTD encomendas</th>
+                        <th scope="col">Porteiro liberado</th>
+                        <th scope="col">Morador redebido</th>
+                        <th scope="col">Id morador</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for encomenda in encomendas %}
+                        <tr>
+                            <th>{{ encomenda.id }}</th>
+                            <td>{{ encomenda.data.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ encomenda.qtd }}</td>
+                            <td>{{ encomenda.recebimento_porteiro }}</td>
+                            <td>{{ encomenda.recebimento_morador }}</td>
+                            <td>{{ encomenda.encomenda_usuario }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% endif %}
+        </table>
+    </div>
+{% endblock %}

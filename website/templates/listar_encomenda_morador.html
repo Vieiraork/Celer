@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Listar encomendas{% endblock %}
+
+{% block content %}
+    <br><br><br>
+    {% if usuario.tipo_conta|string() == "Morador" %}
+            <script src="{{ url_for('static', filename='liberar_recebimento.js') }}"></script>
+            <br><br>
+            <div class="container">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        {% if encomendas %}
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">QTD</th>
+                                <th scope="col">Recebido</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        {% endif %}
+                    </thead>
+                    <tbody>
+                        {% for encomenda in encomendas %}
+                            <tr>
+                                <th scope="row">{{ encomenda.id }}</th>
+                                <td>{{ encomenda.data.strftime('%d/%m/%Y') }}</td>
+                                <td>{{ encomenda.qtd }}</td>
+                                <td>{{ encomenda.recebimento_morador }}</td>
+                                <td>
+                                    {% if encomenda.recebimento_morador|string() == 'Não' %}
+                                        <button class="btn btn-outline-success" onclick="recebeEncomenda('{{ encomenda.id }}')">Receber</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    {% endif %}
+{% endblock %}
